@@ -1,11 +1,21 @@
+
 import express from "express"; // in the node_modules
 import morgan from "morgan";
-
-const PORT = 4000;
+import globalRouter from "./routers/globalRouter";
+import videoRouter from "./routers/videoRouter";
+import userRouter from "./routers/userRouter";
 
 const app = express();
-
 const logger = morgan("dev");
+
+app.set("view engine", "pug");
+app.set("views", process.cwd() + "/src/views");
+app.use(logger);
+app.use(express.urlencoded({ extended: true }));
+app.use("/", globalRouter);
+app.use("/videos", videoRouter);
+app.use("/users", userRouter);
+
 
 // const logger = (req, res, next) => {
 //     console.log(`${req.method} ${req.url}`);
@@ -20,14 +30,14 @@ const logger = morgan("dev");
 //     next();
 // }
 
-const handleHome = (req, res) => {
-    //return res.end();
-    return res.send("<h1>I love middlewares</h1>");
-}
+// const handleHome = (req, res) => {
+//     //return res.end();
+//     return res.send("<h1>I love middlewares</h1>");
+// }
 
-const handleLogin = (req, res) => {
-    return res.send({ message : "Login here"});
-}
+// const handleLogin = (req, res) => {
+//     return res.send({ message : "Login here"});
+// }
 
 // const handleProtected = (req, res) => {
 //     return res.send("welcome to the private lounge");
@@ -37,12 +47,8 @@ const handleLogin = (req, res) => {
 // app.use(privateMiddleware);
 
 //app.get("/", handleHome);
-
-app.use(logger);
-app.get("/", handleHome);
-app.get("/login", handleLogin);
+// app.get("/", handleHome);
+// app.get("/login", handleLogin);
 //app.get("/protected", handleProtected);
 
-const handleListening = () => console.log(`Server listening on http://localhost:${PORT}  🚀`);
-
-app.listen(PORT, handleListening);
+export default app;

@@ -8,13 +8,15 @@
     "url": "(https://github.com/padotagi/wetube-reloaded)"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/server.js"
+    "dev": "nodemon --exec babel-node src/init.js"
   },
   "author": "padotagi",
   "license": "MIT",
   "dependencies": {
     "express": "^4.19.2",
-    "morgan": "^1.10.0"
+    "mongoose": "^5.12.3",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.24.5",
